@@ -1,0 +1,62 @@
+package ajusteSubs;
+
+import java.util.Scanner;
+
+public class ajusteOyente {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Solicitar al usuario la distancia desde la P.A. a los subwoofers en coordenadas x, y, z
+        System.out.print("Introduce la distancia desde la P.A. a los subwoofers en metros (coordenada x): ");
+        double x = input.nextDouble();
+
+        System.out.print("Introduce la distancia desde la P.A. a los subwoofers en metros (coordenada y): ");
+        double y = input.nextDouble();
+
+        System.out.print("Introduce la distancia desde la P.A. a los subwoofers en metros (coordenada z): ");
+        double z = input.nextDouble();
+
+        // Calcular el retardo inicial necesario
+        double distancia = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        double retardoInicial = (distancia * 1000) / 343;
+
+        System.out.println("El retardo inicial necesario es: " + retardoInicial + " milisegundos");
+
+        // Preguntar si se quieren añadir más unidades
+        System.out.print("¿Quieres añadir más unidades? (s/n): ");
+        String respuesta = input.next();
+
+        double incrementoDelay = 0;
+        int numUnidades = 1;
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            // Preguntar la separación en metros entre las unidades
+            System.out.print("Introduce la separación en metros entre las unidades: ");
+            double separacion = input.nextDouble();
+
+            // Calcular el incremento de delay por unidad y el número total de unidades
+            incrementoDelay = (separacion * 1000) / 343;
+            System.out.println("El incremento de delay por unidad es: " + incrementoDelay + " milisegundos");
+
+            System.out.print("Introduce el número total de unidades: ");
+            numUnidades = input.nextInt();
+        }
+
+        // Preguntar la distancia desde los subwoofers hasta el oyente
+        System.out.print("Introduce la distancia desde los subwoofers hasta el oyente en metros: ");
+        double distanciaOyente = input.nextDouble();
+
+        // Calcular el retardo adicional debido a la distancia entre los subwoofers y el oyente
+        double retardoAdicional = (distanciaOyente * 1000) / 343;
+
+        // Calcular y mostrar el retardo total para cada unidad
+        System.out.println("Retardos totales para cada unidad:");
+
+        for (int i = 0; i < numUnidades; i++) {
+            double retardoTotal = retardoInicial + (i * incrementoDelay) - retardoAdicional;
+            System.out.println("Unidad " + (i+1) + ": " + retardoTotal + " milisegundos");
+        }
+
+        input.close();
+    }
+}
