@@ -1,0 +1,27 @@
+package ajusteSubs;
+import java.util.Scanner;
+
+public class AjusteSubwoofer {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Solicitar al usuario la distancia desde la P.A. a los subwoofers en coordenadas x, y, z
+        System.out.print("Introduce la distancia desde la P.A. a los subwoofers en metros (coordenada x): ");
+        double x = input.nextDouble();
+
+        System.out.print("Introduce la distancia desde la P.A. a los subwoofers en metros (coordenada y): ");
+        double y = input.nextDouble();
+
+        System.out.print("Introduce la distancia desde la P.A. a los subwoofers en metros (coordenada z): ");
+        double z = input.nextDouble();
+
+        // Calcular el retardo necesario
+       double distancia = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        double retardo = (distancia * 1000) / 343;
+
+        // Mostrar el resultado
+        System.out.println("El retardo necesario es: " + retardo + " milisegundos");
+
+        input.close();
+    }
+}
